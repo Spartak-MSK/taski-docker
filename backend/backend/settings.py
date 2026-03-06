@@ -1,3 +1,14 @@
+"""
+Django settings for backend project.
+
+Contains configuration for:
+- installed apps and middleware
+- database connection
+- internationalization
+- static files
+- CORS
+"""
+
 import os
 
 from pathlib import Path
