@@ -10,7 +10,6 @@ Contains configuration for:
 """
 
 import os
-
 from pathlib import Path
 
 
