@@ -33,9 +33,9 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip setuptools
-        pip install flake8==6.0.0 flake8-isort==6.0.0
-        pip install -r ./backend/requirements.txt 
+        python -m pip install -U pip setuptools wheel
+        python -m pip install -r ./backend/requirements.txt
+        python -m pip install -U flake8 flake8-isort 
     # Этот шаг дополним переменными для доступа к БД
     - name: Test with flake8 and django tests
       # Добавляем env-переменные для доступа к БД
