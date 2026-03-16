@@ -136,28 +136,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create deploy directory on server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          port: ${{ secrets.SSH_PORT }}
-          script: mkdir -p taski
-
-      - name: Copy docker-compose.production.yml to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "docker-compose.production.yml"
-          target: "taski/"
-          debug: true
-
       - name: Deploy (pull, up, migrate, collectstatic)
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -167,7 +145,9 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: ${{ secrets.SSH_PORT }}
           script: |
+            mkdir -p taski
             cd taski
+            # docker-compose.production.yml должен быть уже там!
             sudo docker compose -f docker-compose.production.yml pull
             sudo docker compose -f docker-compose.production.yml down
             sudo docker compose -f docker-compose.production.yml up -d
